@@ -25,7 +25,7 @@ var index = function(req, res, next) {
 // GET
 var signIn = function(req, res, next) {
    if(req.isAuthenticated()) res.redirect('/');
-   res.render('signin', {title: 'Sign In'});
+   res.render('signin', {page_title: 'Sign In'});
 };
 
 // sign in
@@ -34,15 +34,15 @@ var signInPost = function(req, res, next) {
    passport.authenticate('local', { successRedirect: '/',
                           failureRedirect: '/signin'}, function(err, user, info) {
       if(err) {
-         return res.render('signin', {title: 'Sign In', errorMessage: err.message});
+         return res.render('signin', {page_title: 'Sign In', errorMessage: err.message});
       } 
 
       if(!user) {
-         return res.render('signin', {title: 'Sign In', errorMessage: info.message});
+         return res.render('signin', {page_title: 'Sign In', errorMessage: info.message});
       }
       return req.logIn(user, function(err) {
          if(err) {
-            return res.render('signin', {title: 'Sign In', errorMessage: err.message});
+            return res.render('signin', {page_title: 'Sign In', errorMessage: err.message});
          } else {
             return res.redirect('/');
          }
